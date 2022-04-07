@@ -1,5 +1,5 @@
 import { Todo } from './model/todo.js';
-import { addEventSort, addEventSubmit, changeDoneNumber, createTodoDOM, removeTodoDOM } from "./view.js";
+import { addEventClean, addEventSort, addEventSubmit, changeDoneNumber, createTodoDOM, removeTodoDOM } from "./view.js";
 
 class App {
     #doneNumber;
@@ -8,6 +8,7 @@ class App {
         this.#doneNumber = 0;
         addEventSubmit(this.addList.bind(this));
         addEventSort(this.sort.bind(this));
+        addEventClean(this.clean.bind(this));
         changeDoneNumber(0);
         this.getList();
     }
@@ -52,6 +53,15 @@ class App {
         this.list.sort(Todo.compare);
         this.list.forEach(todo => removeTodoDOM(todo));
         this.list.forEach(todo => createTodoDOM(todo, this.toggleTodo.bind(this), this.deleteTodo.bind(this)));
+    }
+
+    async clean() {
+        await Promise.all(this.list.filter(todo => todo.done).map(todo => {
+            removeTodoDOM(todo);
+            return todo.removeTodo();
+        }));
+        this.list = this.list.filter(todo => !todo.done);
+        this.calcDoneNumber();
     }
 }
 
