@@ -34,10 +34,10 @@ function changeDoneNumber(num) {
 }
 
 // TODOリスト要素のDOMを作成する
-// - todo: 対象のTODO要素
+// - todo: 対象のデータ
 // - toggle: doneボタン押下時のコールバック関数
 // - del: deleteボタン押下時のコールバック関数
-function createTodoDOM(todo, toggle, del) {
+function createTodoDOM(todo, toggle, del, edit) {
     const li = document.createElement('li');
     li.className = 'todo-item';
 
@@ -77,7 +77,6 @@ function createTodoDOM(todo, toggle, del) {
     button.addEventListener('click', () => {
         console.log('delete ' + todo.id);
         del(todo.id);
-        li.remove();
     });
 
     input.addEventListener('click', () => {
@@ -86,8 +85,18 @@ function createTodoDOM(todo, toggle, del) {
     });
 }
 
+// TODOリストの要素を削除する
+// - todo: 対象のデータ
+function removeTodoDOM(todo) {
+    console.log(todo);
+    const div = todos.querySelector(`li.todo-item > div[data-todo-id="${todo.id}"]`);
+    const li = div.parentNode;
+    li.remove();
+}
+
 export {
     createTodoDOM,
     addEventSubmit,
-    changeDoneNumber
+    changeDoneNumber,
+    removeTodoDOM
 }

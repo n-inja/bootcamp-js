@@ -1,16 +1,17 @@
 const baseURL = 'http://localhost:3000';
+// APIにリクエストを投げて結果のJSONを返す関数群
 
 // TODOの一覧を取得する
-async function getTodoList() {
+async function getTodo() {
     console.log('get todos');
     const res = await fetch(`${baseURL}/todo`);
     const data = await res.json();
     console.log(data);
-    return data.todoList;
+    return data;
 }
 
 // TODOを作成する
-async function createTodo(name) {
+async function postTodo(name) {
     console.log('create todo');
     const res = await fetch(`${baseURL}/todo`, {
         method: 'POST',
@@ -25,7 +26,7 @@ async function createTodo(name) {
 }
 
 // TODOのdoneの更新を行う
-async function changeTodo(todo) {
+async function patchTodo(todo) {
     console.log('change todo');
     const res = await fetch(`${baseURL}/todo/${todo.id}`, {
         method: 'PATCH',
@@ -52,8 +53,8 @@ async function deleteTodo(id) {
 }
 
 export {
-    getTodoList,
-    createTodo,
-    changeTodo,
+    getTodo,
+    postTodo,
+    patchTodo,
     deleteTodo
 }
