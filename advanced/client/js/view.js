@@ -2,6 +2,8 @@ const todos = document.querySelector('ul.todos');
 const form = document.querySelector('form.todo-form');
 const doneItemSpan = document.querySelector('span.done-items-num__value');
 
+// submitボタンのイベントを上書きする
+// - addTodo: ボタン押下時のコールバック関数
 function addEventSubmit(addTodo) {
     const input = form.querySelector('input[type="submit"]');
     const todoName = form.querySelector('input#name');
@@ -25,10 +27,16 @@ function addEventSubmit(addTodo) {
     });
 }
 
+// doneのTODO要素の個数を更新する
+// - num: doneの個数
 function changeDoneNumber(num) {
     doneItemSpan.innerHTML = num;
 }
 
+// TODOリスト要素のDOMを作成する
+// - todo: 対象のTODO要素
+// - toggle: doneボタン押下時のコールバック関数
+// - del: deleteボタン押下時のコールバック関数
 function createTodoDOM(todo, toggle, del) {
     const li = document.createElement('li');
     li.className = 'todo-item';
