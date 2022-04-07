@@ -1,4 +1,5 @@
 import { getTodoList, createTodo, removeTodo, toggleTodo } from './model.js';
+import { Todo } from './todo.js';
 import { addEventSort, addEventSubmit, changeDoneNumber, createTodoDOM, removeTodoDOM } from "./view.js";
 
 class App {
@@ -49,9 +50,7 @@ class App {
     }
 
     sort() {
-        this.list.sort((l, r) => {
-            return l.name.localeCompare(r.name);
-        });
+        this.list.sort(Todo.compare);
         this.list.forEach(todo => removeTodoDOM(todo));
         this.list.forEach(todo => createTodoDOM(todo, this.toggleTodo.bind(this), this.deleteTodo.bind(this)));
     }
