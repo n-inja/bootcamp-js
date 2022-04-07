@@ -26,12 +26,27 @@ async function createTodo(todo) {
 // TODOのdoneの更新を行う
 async function changeTodo(todo) {
     console.log('change todo');
+    const res = await fetch(`${baseURL}/todo/${todo.id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(todo)
+    });
+    console.log(res);
     return todo;
 }
 
 // TODOの削除を行う
 async function deleteTodo(id) {
     console.log('delete todo');
+    const res = await fetch(`${baseURL}/todo/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    console.log(res);
     return;
 }
 
