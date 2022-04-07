@@ -18,7 +18,7 @@ function changeDoneNumber(num) {
     doneItemSpan.innerHTML = num;
 }
 
-function createTodoDOM(todo) {
+function createTodoDOM(todo, toggle, del) {
     const li = document.createElement('li');
     li.className = 'todo-item';
 
@@ -54,10 +54,13 @@ function createTodoDOM(todo) {
 
     button.addEventListener('click', () => {
         console.log('delete ' + todo.id);
+        del(todo.id);
+        li.remove();
     });
 
     input.addEventListener('click', () => {
         console.log('change ' + todo.id);
+        toggle(todo.id);
     });
 }
 
