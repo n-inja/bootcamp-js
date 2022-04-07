@@ -4,16 +4,14 @@ const baseURL = 'http://localhost:3000';
 // TODOの一覧を取得する
 async function getTodo() {
     console.log('get todos');
-    const res = await fetch(`${baseURL}/todo`);
-    const data = await res.json();
-    console.log(data);
-    return data;
+    const res = await fetch(new URL('/todo', baseURL));
+    return await res.json();
 }
 
 // TODOを作成する
 async function postTodo(name) {
     console.log('create todo');
-    const res = await fetch(`${baseURL}/todo`, {
+    const res = await fetch(new URL('/todo', baseURL), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -21,14 +19,13 @@ async function postTodo(name) {
         body: JSON.stringify({name})
     });
     console.log(res);
-    const data = await res.json();
-    return data;
+    return await res.json();
 }
 
 // TODOのdoneの更新を行う
 async function patchTodo(todo) {
     console.log('change todo');
-    const res = await fetch(`${baseURL}/todo/${todo.id}`, {
+    const res = await fetch(new URL(`/todo/${todo.id}`, baseURL), {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -36,13 +33,13 @@ async function patchTodo(todo) {
         body: JSON.stringify(todo)
     });
     console.log(res);
-    return todo;
+    return await res.json();
 }
 
 // TODOの削除を行う
 async function deleteTodo(id) {
     console.log('delete todo');
-    const res = await fetch(`${baseURL}/todo/${id}`, {
+    const res = await fetch(new URL(`/todo/${id}`, baseURL), {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
