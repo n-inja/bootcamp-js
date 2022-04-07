@@ -1,5 +1,5 @@
 import { getTodoList, createTodo, removeTodo, toggleTodo } from './model.js';
-import { addEventSubmit, changeDoneNumber, createTodoDOM, removeTodoDOM } from "./view.js";
+import { addEventSort, addEventSubmit, changeDoneNumber, createTodoDOM, removeTodoDOM } from "./view.js";
 
 class App {
     #doneNumber;
@@ -7,6 +7,7 @@ class App {
         this.list = [];
         this.#doneNumber = 0;
         addEventSubmit(this.addList.bind(this));
+        addEventSort(this.sort.bind(this));
         changeDoneNumber(0);
         this.getList();
     }
@@ -27,7 +28,7 @@ class App {
     async addList(name) {
         console.log(name);
         const todo = await createTodo(name);
-        createTodoDOM(todo, this.toggleTodo.bind(this), this.deleteTodo.bind(this));        
+        createTodoDOM(todo, this.toggleTodo.bind(this), this.deleteTodo.bind(this));
         this.list.push(todo);
     }
 
@@ -45,6 +46,14 @@ class App {
         await toggleTodo(todo);
 
         this.calcDoneNumber();
+    }
+
+    sort() {
+        this.list.sort((l, r) => {
+            return l.name.localeCompare(r.name);
+        });
+        this.list.forEach(todo => removeTodoDOM(todo));
+        this.list.forEach(todo => createTodoDOM(todo, this.toggleTodo.bind(this), this.deleteTodo.bind(this)));
     }
 }
 

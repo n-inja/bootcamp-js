@@ -1,6 +1,7 @@
 const todos = document.querySelector('ul.todos');
 const form = document.querySelector('form.todo-form');
 const doneItemSpan = document.querySelector('span.done-items-num__value');
+const sortButton = document.querySelector('button.todo-sort-button');
 
 // submitボタンのイベントを上書きする
 // - addTodo: ボタン押下時のコールバック関数
@@ -31,6 +32,15 @@ function addEventSubmit(addTodo) {
 // - num: doneの個数
 function changeDoneNumber(num) {
     doneItemSpan.innerHTML = num;
+}
+
+
+// TODOリストをソートするボタンのイベントを登録する
+// - sort: ボタン押下時のコールバック
+function addEventSort(sort) {
+    sortButton.addEventListener('click', (e) => {
+        sort();
+    });
 }
 
 // TODOリスト要素のDOMを作成する
@@ -97,6 +107,7 @@ function removeTodoDOM(todo) {
 export {
     createTodoDOM,
     addEventSubmit,
+    addEventSort,
     changeDoneNumber,
     removeTodoDOM
 }
