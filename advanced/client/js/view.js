@@ -1,4 +1,16 @@
 const todos = document.querySelector('ul.todos');
+const form = document.querySelector('form.todo-form');
+
+function addEventSubmit() {
+    const input = form.querySelector('input[type="submit"]');
+    const todoName = form.querySelector('input#name');
+    const name = todoName.value;
+
+    input.addEventListener('click', e => {
+        console.log(`submit click ${name}`);
+        e.preventDefault();
+    });
+}
 
 function createTodoDOM(todo) {
     todo = todo ? todo : {};
@@ -47,5 +59,6 @@ function createTodoDOM(todo) {
 }
 
 export {
-    createTodoDOM
+    createTodoDOM,
+    addEventSubmit
 }
