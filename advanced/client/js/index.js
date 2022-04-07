@@ -1,9 +1,12 @@
-import { addEventSubmit, createTodoDOM } from "./view.js";
+import { Controller } from './controller.js';
 
 const main = () => {
-  console.log("ここにロジックを記述");
-  createTodoDOM();
-  addEventSubmit();
+  const controller = new Controller();
+  controller.addList({
+    id: 4,
+    name: 'a',
+    done: false
+  });
 };
 
 main();

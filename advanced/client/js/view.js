@@ -1,15 +1,21 @@
 const todos = document.querySelector('ul.todos');
 const form = document.querySelector('form.todo-form');
+const doneItemSpan = document.querySelector('span.done-items-num__value');
 
-function addEventSubmit() {
+function addEventSubmit(addTodo) {
     const input = form.querySelector('input[type="submit"]');
     const todoName = form.querySelector('input#name');
     const name = todoName.value;
 
     input.addEventListener('click', e => {
         console.log(`submit click ${name}`);
+        console.log(addTodo);
         e.preventDefault();
     });
+}
+
+function changeDoneNumber(num) {
+    doneItemSpan.innerHTML = num;
 }
 
 function createTodoDOM(todo) {
@@ -60,5 +66,6 @@ function createTodoDOM(todo) {
 
 export {
     createTodoDOM,
-    addEventSubmit
+    addEventSubmit,
+    changeDoneNumber
 }

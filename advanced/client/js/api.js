@@ -1,7 +1,7 @@
 const baseURL = 'http://localhost:3000';
 
 // TODOの一覧を取得する
-async function getTodolist() {
+async function getTodoList() {
     console.log('get todos');
     return [
         {
@@ -36,7 +36,7 @@ async function deleteTodo(id) {
 }
 
 export {
-    getTodolist,
+    getTodoList,
     createTodo,
     changeTodo,
     deleteTodo
