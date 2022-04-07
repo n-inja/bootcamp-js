@@ -1,4 +1,4 @@
-import { getTodoList, createTodo, deleteTodo } from './api';
+import { getTodoList, createTodo, deleteTodo } from './api.js';
 
 // APIへのリクエストを行う
 class Controller {
