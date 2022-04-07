@@ -1,5 +1,4 @@
-import { getTodoList, createTodo, removeTodo, toggleTodo } from './model.js';
-import { Todo } from './todo.js';
+import { Todo } from './model/todo.js';
 import { addEventSort, addEventSubmit, changeDoneNumber, createTodoDOM, removeTodoDOM } from "./view.js";
 
 class App {
@@ -19,7 +18,7 @@ class App {
     }
 
     async getList() {
-        this.list = await getTodoList();
+        this.list = await Todo.getTodoList();
         this.list.forEach(todo => {
             createTodoDOM(todo, this.toggleTodo.bind(this), this.deleteTodo.bind(this));
         });
@@ -28,7 +27,7 @@ class App {
 
     async addList(name) {
         console.log(name);
-        const todo = await createTodo(name);
+        const todo = await Todo.createTodo(name);
         createTodoDOM(todo, this.toggleTodo.bind(this), this.deleteTodo.bind(this));
         this.list.push(todo);
     }
@@ -36,7 +35,7 @@ class App {
     async deleteTodo(id) {
         const todo = this.list.find(t => t.id === id);
         this.list = this.list.filter(t => t.id !== id);
-        await removeTodo(id);
+        await todo.removeTodo();
         removeTodoDOM(todo);
 
         this.calcDoneNumber();
@@ -44,7 +43,7 @@ class App {
 
     async toggleTodo(id) {
         const todo = this.list.find(t => t.id === id);
-        await toggleTodo(todo);
+        await todo.toggleTodo();
 
         this.calcDoneNumber();
     }
