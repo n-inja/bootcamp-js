@@ -9,7 +9,11 @@ function addEventSubmit(addTodo) {
     input.addEventListener('click', e => {
         const name = todoName.value;
         console.log(`submit click ${name}`);
-        addTodo(name);
+        addTodo(name).then(() => {
+            todoName.value = '';
+        }, e => {
+            console.error(e);
+        });
         e.preventDefault();
     });
 }
