@@ -12,6 +12,14 @@ async function getTodoList() {
 // TODOを作成する
 async function createTodo(todo) {
     console.log('create todo');
+    const res = await fetch(`${baseURL}/todo`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(todo)
+    });
+    console.log(res);
     return;
 }
 
