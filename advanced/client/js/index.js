@@ -1,8 +1,7 @@
-import { Controller } from './controller.js';
+import { App } from './app.js';
 
 const main = () => {
-  const controller = new Controller();
-  controller.getList();
+  const app = new App();
 };
 
 main();

@@ -2,19 +2,21 @@ import { getTodoList, createTodo, deleteTodo, changeTodo } from './api.js';
 import Todo from './todo.js';
 import { addEventSubmit, changeDoneNumber, createTodoDOM } from "./view.js";
 
-// APIへのリクエストを行う
-class Controller {
+class App {
     #doneNumber;
     constructor() {
         this.list = [];
         this.#doneNumber = 0;
         addEventSubmit(this.addList.bind(this));
         changeDoneNumber(0);
+        this.getList();
     }
+
     calcDoneNumber() {
         this.#doneNumber = this.list.filter(t => t.done).length;
         changeDoneNumber(this.#doneNumber);
     }
+
     async getList() {
         const data = await getTodoList();
         this.list = data.map(r => new Todo(r.id, r.name, r.done));
@@ -23,6 +25,7 @@ class Controller {
         });
         this.calcDoneNumber();
     }
+
     async addList(name) {
         console.log(name, this);
         const todoRaw = await createTodo(name);
@@ -31,6 +34,7 @@ class Controller {
         
         this.list.push(todo);
     }
+
     async deleteTodo(id) {
         await deleteTodo(id);
         const todo = this.list.find(t => t.id === id);
@@ -38,6 +42,7 @@ class Controller {
 
         this.calcDoneNumber();
     }
+
     async toggleTodo(id) {
         const todo = this.list.find(t => t.id === id);
         todo.done = !todo.done;
@@ -48,5 +53,5 @@ class Controller {
 }
 
 export {
-    Controller
+    App
 }
