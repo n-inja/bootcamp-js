@@ -1,17 +1,49 @@
 const todos = document.querySelector('ul.todos');
 
 function createTodoDOM(todo) {
+    todo = todo ? todo : {};
+    todo.id = 'test 1';
+
     const li = document.createElement('li');
-    li.innerHTML = 'aaaa';
+    li.className = 'todo-item';
+
+    const label = document.createElement('label');
+    label.className = 'todo-toggle__container';
+
+    const input = document.createElement('input');
+    input.className = 'todo-toggle';
+    input.setAttribute('data-todo-id', todo.id);
+    input.setAttribute('type', 'checkbox');
+    input.setAttribute('value', 'checked');
+    label.appendChild(input);
+
+    const span = document.createElement('span');
+    span.className = 'todo-toggle__checkmark';
+    label.appendChild(span);
+
+    li.appendChild(label);
+
+    const name = document.createElement('div');
+    name.className = 'todo-name';
+    name.innerText = 'test name';
+
+    const button = document.createElement('div');
+    button.className = 'todo-remove-button';
+    button.innerText = 'x';
+    button.setAttribute('data-todo-id', todo.id);
+
+    li.appendChild(name);
+    li.appendChild(button);
+
     todos.appendChild(li);
-    `<li class="todo-item">
-        <label class="todo-toggle__container">
-            <input data-todo-id="1" type="checkbox" class="todo-toggle" value="checked">
-            <span class="todo-toggle__checkmark"></span>
-        </label>
-        <div class="todo-name">sample1</div>
-        <div data-todo-id="1" class="todo-remove-button">x</div>
-    </li>`
+
+    button.addEventListener('click', () => {
+        console.log('delete ' + todo.id);
+    });
+
+    input.addEventListener('click', () => {
+        console.log('change ' + todo.id);
+    });
 }
 
 export {
