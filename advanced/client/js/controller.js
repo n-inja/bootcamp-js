@@ -1,4 +1,5 @@
 import { getTodoList, createTodo, deleteTodo } from './api.js';
+import Todo from './todo.js';
 import { addEventSubmit, changeDoneNumber, createTodoDOM } from "./view.js";
 
 // APIへのリクエストを行う
@@ -11,7 +12,9 @@ class Controller {
     async getList() {
         this.list = await getTodoList();
     }
-    async addList(todo) {
+    async addList(name) {
+        console.log(name, this);
+        const todo = new Todo(this.list.length, name);
         createTodoDOM(todo);
         await createTodo(todo);
         this.list.push(todo);

@@ -5,11 +5,11 @@ const doneItemSpan = document.querySelector('span.done-items-num__value');
 function addEventSubmit(addTodo) {
     const input = form.querySelector('input[type="submit"]');
     const todoName = form.querySelector('input#name');
-    const name = todoName.value;
 
     input.addEventListener('click', e => {
+        const name = todoName.value;
         console.log(`submit click ${name}`);
-        console.log(addTodo);
+        addTodo(name);
         e.preventDefault();
     });
 }
@@ -19,9 +19,6 @@ function changeDoneNumber(num) {
 }
 
 function createTodoDOM(todo) {
-    todo = todo ? todo : {};
-    todo.id = 'test 1';
-
     const li = document.createElement('li');
     li.className = 'todo-item';
 
@@ -43,7 +40,7 @@ function createTodoDOM(todo) {
 
     const name = document.createElement('div');
     name.className = 'todo-name';
-    name.innerText = 'test name';
+    name.innerText = todo.name;
 
     const button = document.createElement('div');
     button.className = 'todo-remove-button';
