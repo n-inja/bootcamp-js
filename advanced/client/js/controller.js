@@ -16,7 +16,8 @@ class Controller {
         changeDoneNumber(this.#doneNumber);
     }
     async getList() {
-        this.list = await getTodoList();
+        const data = await getTodoList();
+        this.list = data.map(r => new Todo(r.id, r.name, r.done));
         this.list.forEach(todo => {
             createTodoDOM(todo, this.toggleTodo.bind(this), this.deleteTodo.bind(this));
         });
@@ -24,9 +25,10 @@ class Controller {
     }
     async addList(name) {
         console.log(name, this);
-        const todo = new Todo(this.list.length, name);
+        const todoRaw = await createTodo(name);
+        const todo = new Todo(todoRaw.id, todoRaw.name, todoRaw.done);
         createTodoDOM(todo, this.toggleTodo.bind(this), this.deleteTodo.bind(this));
-        await createTodo(todo);
+        
         this.list.push(todo);
     }
     async deleteTodo(id) {
