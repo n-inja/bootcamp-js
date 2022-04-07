@@ -4,7 +4,7 @@ import { addEventSubmit, changeDoneNumber, createTodoDOM } from "./view.js";
 
 // APIへのリクエストを行う
 class Controller {
-    #doneNumber
+    #doneNumber;
     constructor() {
         this.list = [];
         this.#doneNumber = 0;
@@ -17,6 +17,9 @@ class Controller {
     }
     async getList() {
         this.list = await getTodoList();
+        this.list.forEach(todo => {
+            createTodoDOM(todo, this.toggleTodo.bind(this), this.deleteTodo.bind(this));
+        });
         this.calcDoneNumber();
     }
     async addList(name) {

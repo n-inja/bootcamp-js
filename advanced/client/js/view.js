@@ -33,6 +33,9 @@ function createTodoDOM(todo, toggle, del) {
     input.className = 'todo-toggle';
     input.setAttribute('data-todo-id', todo.id);
     input.setAttribute('type', 'checkbox');
+    if (todo.done) {
+        input.setAttribute('checked', '');
+    }
     input.setAttribute('value', 'checked');
     label.appendChild(input);
 
