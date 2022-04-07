@@ -7,14 +7,21 @@ function addEventSubmit(addTodo) {
     const todoName = form.querySelector('input#name');
 
     input.addEventListener('click', e => {
+        e.preventDefault();
         const name = todoName.value;
         console.log(`submit click ${name}`);
+
+        if (name === '') {
+            window.alert('TODO名が空白です');
+
+            return;
+        }
+
         addTodo(name).then(() => {
             todoName.value = '';
         }, e => {
             console.error(e);
         });
-        e.preventDefault();
     });
 }
 
