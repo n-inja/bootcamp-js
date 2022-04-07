@@ -3,18 +3,10 @@ const baseURL = 'http://localhost:3000';
 // TODOの一覧を取得する
 async function getTodoList() {
     console.log('get todos');
-    return [
-        {
-            "id": 1,
-            "name": "牛乳を買う",
-            "done": false
-          },
-          {
-            "id": 2,
-            "name": "部屋を掃除する",
-            "done": true
-          }
-    ];
+    const res = await fetch(`${baseURL}/todo`);
+    const data = await res.json();
+    console.log(data);
+    return data.todoList;
 }
 
 // TODOを作成する
